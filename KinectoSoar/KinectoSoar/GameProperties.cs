@@ -18,6 +18,7 @@ namespace KinectoSoar
         public bool Screech { get; set; }
         public int HighScore = 0;
         public int Score = 0;
+        public int Multiplier = 1;
 
 
         #region Bird related methods
@@ -94,6 +95,7 @@ namespace KinectoSoar
             this.BorderDensity = 75f;
             this.Score = 0;
             this.HighScore = 0;
+            this.Multiplier = 1;
         }
 
         #endregion

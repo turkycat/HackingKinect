@@ -44,16 +44,17 @@ namespace KinectoSoar.ScreenManager
         }
         public override void Draw()
         {
-            Vector2 fontDimensions = Resources.Instance.GetFont("TitleFont").MeasureString("Soar") * 0.5f;
+            //Vector2 fontDimensions = Resources.Instance.GetFont("TitleFont").MeasureString("Soar") * 0.5f;
             Vector2 screenSize = new Vector2(_game.GraphicsDevice.Viewport.Width, _game.GraphicsDevice.Viewport.Height);
-            _spriteBatch.DrawString(Resources.Instance.GetFont("TitleFont"), "Soar", new Vector2(screenSize.X / 2 - fontDimensions.X, screenSize.Y * 0.3f - fontDimensions.Y), Color.Black);
+            //_spriteBatch.DrawString(Resources.Instance.GetFont("TitleFont"), "Soar", new Vector2(screenSize.X / 2 - fontDimensions.X, screenSize.Y * 0.3f - fontDimensions.Y), Color.Black);
+            _spriteBatch.Draw(Resources.Instance.GetTexture("Soar"), new Vector2(150, 150), Color.White);
 
             Rectangle background = new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y);
             _spriteBatch.Draw(Resources.Instance.GetTexture("Background"), background, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1.0f);
             if( GameProperties.Instance.Ready )
             {
                 Texture2D texture = Resources.Instance.GetTexture( "Ready" );
-                _spriteBatch.Draw(texture, new Rectangle(((int)screenSize.X - 300) / 2, ((int)screenSize.Y - 200) / 2, 300, 300), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
+                _spriteBatch.Draw(texture, new Rectangle(((int)screenSize.X - 300) / 2, (((int)screenSize.Y - 200) / 2) + 200, 300, 300), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
             }
             Vector2 scoreSize = Resources.Instance.GetFont("Cooper").MeasureString("High Score: " + GameProperties.Instance.HighScore.ToString());
             _spriteBatch.DrawString(Resources.Instance.GetFont("Cooper"), "High Score: " + GameProperties.Instance.HighScore.ToString(), new Vector2((_game.GraphicsDevice.Viewport.Width - scoreSize.X) / 2, 10), Color.Yellow);

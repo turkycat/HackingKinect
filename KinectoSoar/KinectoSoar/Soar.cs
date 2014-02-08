@@ -39,6 +39,8 @@ namespace KinectoSoar
             //set window preferences
             graphics.PreferredBackBufferWidth = 900;
             graphics.PreferredBackBufferHeight = 900;
+            //graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
 
             Resources.Instance.SetSpriteReader(new SpriteReader.SpriteReader(Content.RootDirectory + @"\", "BirdSprite.xml"));
             Resources.Instance.SetSpriteBlackReader(new SpriteReader.SpriteReader(Content.RootDirectory + @"\", "BlackBirdSprite.xml"));
@@ -81,6 +83,7 @@ namespace KinectoSoar
             Resources.Instance.AddFont("Cooper", Content.Load<SpriteFont>("Cooper"));
             Resources.Instance.AddFont("TitleFont", Content.Load<SpriteFont>("TitleFont"));
             Resources.Instance.AddTexture("Background", Content.Load<Texture2D>(@"Sprites/Background"));
+            Resources.Instance.AddTexture("Soar", Content.Load<Texture2D>(@"Sprites/Soar"));
             Resources.Instance.AddTexture("BirdSprite", Content.Load<Texture2D>(@"Sprites/BirdSprite"));
             Resources.Instance.AddTexture("BlackBirdSprite", Content.Load<Texture2D>(@"Sprites/BlackBirdSprite"));
             Resources.Instance.AddTexture("Water", Content.Load<Texture2D>(@"Sprites/Water"));
@@ -115,7 +118,8 @@ namespace KinectoSoar
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                this.Exit();
 
 
             base.Update(gameTime);

@@ -53,7 +53,8 @@ namespace KinectoSoar.ScreenManager
                 _spriteBatch.DrawString(Resources.Instance.GetFont("Cooper"), "Game Over", new Vector2(screenSize.X / 2 - fontDimensions.X, screenSize.Y * 0.3f - fontDimensions.Y), Color.Yellow);
             }
             Vector2 scoreSize = Resources.Instance.GetFont("Cooper").MeasureString("Score: " + GameProperties.Instance.Score.ToString());
-            _spriteBatch.DrawString(Resources.Instance.GetFont("Cooper"), "Score: " + GameProperties.Instance.Score.ToString(), new Vector2((_game.GraphicsDevice.Viewport.Width - scoreSize.X) / 2, 10), Color.Yellow);
+            _spriteBatch.DrawString(Resources.Instance.GetFont("Cooper"), "Score: " + GameProperties.Instance.Score.ToString(), new Vector2(((_game.GraphicsDevice.Viewport.Width - scoreSize.X) / 2) - 50, 10), Color.Yellow);
+            _spriteBatch.DrawString(Resources.Instance.GetFont("Cooper"), "x" + GameProperties.Instance.Multiplier.ToString(), new Vector2(((_game.GraphicsDevice.Viewport.Width - scoreSize.X) / 2 ) + 175, 10), Color.Yellow);
         }
 
         public override void Update(ref Screen activeScreen, GameTime gameTime)
@@ -63,7 +64,7 @@ namespace KinectoSoar.ScreenManager
                 _lastFrame += gameTime.ElapsedGameTime.Milliseconds;
                 if (_lastFrame > _time)
                 {
-                    GameProperties.Instance.Score += 1;
+                    GameProperties.Instance.Score += ( 1 * GameProperties.Instance.Multiplier );
                     _lastFrame = 0;
                 }
             }

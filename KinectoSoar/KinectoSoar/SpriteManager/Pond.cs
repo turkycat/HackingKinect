@@ -37,6 +37,10 @@ namespace KinectoSoar.SpriteManager
             fish = new Vector2(fish.X, fish.Y + _speed);
             if (Position.Y > _game.GraphicsDevice.Viewport.Height)
             {
+                if (!_empty)
+                {
+                    GameProperties.Instance.Multiplier = 1;
+                }
                 Set();
             }
         }
@@ -65,7 +69,8 @@ namespace KinectoSoar.SpriteManager
         public override void HandleCollision(Sprite sprite)
         {
             _empty = true;
-            GameProperties.Instance.Score += 15;
+            GameProperties.Instance.Multiplier += 1;
+            GameProperties.Instance.Score += (15 * GameProperties.Instance.Multiplier);
             return;
         }
 

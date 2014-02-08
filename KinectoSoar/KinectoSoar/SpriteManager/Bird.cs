@@ -111,11 +111,11 @@ namespace KinectoSoar.SpriteManager
         public override void Update(GameTime gameTime)
         {
             int elapsedMillis = gameTime.ElapsedGameTime.Milliseconds;
-            _lastFrame += elapsedMillis;
             _timer -= elapsedMillis;
-            _delay -= elapsedMillis;
-            if ( _animate == Animate.Flap )
+
+            if (_animate == Animate.Flap)
             {
+                _lastFrame += elapsedMillis;
                 if (_lastFrame > _frameSpeed && (_frameIndex < _birdInfo.Count - 2))
                 {
                     _lastFrame = 0;
@@ -128,7 +128,8 @@ namespace KinectoSoar.SpriteManager
             }
             else if (_animate == Animate.Left)
             {
-                if (_delay < 0 )
+                _delay -= elapsedMillis;
+                if (_delay < 0)
                 {
                     _frameIndex = 0;
                     _animate = Animate.NONE;
@@ -136,9 +137,10 @@ namespace KinectoSoar.SpriteManager
                 else
                     _frameIndex = 8;
             }
-            else if (_animate == Animate.Right )
+            else if (_animate == Animate.Right)
             {
-                if (_delay < 0 )
+                _delay -= elapsedMillis;
+                if (_delay < 0)
                 {
                     _frameIndex = 0;
                     _animate = Animate.NONE;
@@ -150,12 +152,15 @@ namespace KinectoSoar.SpriteManager
             {
                 _frameIndex = 0;
             }
-            
+
             //decrease velocity ( remember: it's negative to move up! )
             if (_timer < 0)
             {
                 velocity = velocity * 0.9f;
-                if( velocity > -0.05 )_animate = Animate.NONE;
+                if (velocity < -0.05)
+                {
+                    _animate = Animate.NONE;
+                }
                 _timer += _animateTime;
             }
 

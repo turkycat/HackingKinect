@@ -31,8 +31,6 @@ namespace KinectoSoar.Controllers
         //used to verify that the arms are moving downward when detecting flapping
         float currentY = 0;
 
-
-
         public SoarKinect( Game game ) : base( game )
         {
             _spriteBatch = (SpriteBatch)game.Services.GetService(typeof(SpriteBatch));
@@ -120,6 +118,7 @@ namespace KinectoSoar.Controllers
                 speech.Add(new SemanticResultValue("reset", "RESET"));
                 speech.Add(new SemanticResultValue("restart", "RESET"));
                 speech.Add(new SemanticResultValue("menu", "RESET"));
+                speech.Add(new SemanticResultValue("quit", "QUIT"));
                 
                 var gb = new GrammarBuilder { Culture = ri.Culture };
                 gb.Append(speech);
@@ -214,6 +213,9 @@ namespace KinectoSoar.Controllers
                         break;
                     case "RESET":
                         GameProperties.Instance.ResetGame();
+                        break;
+                    case "QUIT":
+                        base.Game.Exit();
                         break;
                 }
             }
