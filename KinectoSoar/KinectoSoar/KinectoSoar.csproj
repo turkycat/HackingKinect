@@ -104,6 +104,7 @@
     <ProjectReference Include="..\KinectoSoarContent\KinectoSoarContent.contentproj">
       <Name>KinectoSoarContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{171C8402-6C0C-458B-8456-5CB842C04B22}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
