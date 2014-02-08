@@ -18,6 +18,7 @@ namespace KinectoSoar.SpriteManager
         private int _frameSpeed = 75;
         private int _lastFrame;
         private int _frameIndex = 0;
+        private int _animate = 0;
 
         private const int WIDTH = 200;
         private const int HEIGHT = 100;
@@ -35,7 +36,7 @@ namespace KinectoSoar.SpriteManager
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("Bird8"));
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("left"));
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("right"));
-            this.Position = new Vector2((game.GraphicsDevice.Viewport.Width - WIDTH) / 2f, game.GraphicsDevice.Viewport.Height - HEIGHT );
+            this.Position = new Vector2((game.GraphicsDevice.Viewport.Width - WIDTH) / 2f, game.GraphicsDevice.Viewport.Height - HEIGHT * 2 );
         }
         
         public override bool IsColliding(Sprite sprite)
@@ -49,35 +50,60 @@ namespace KinectoSoar.SpriteManager
             
             //TODO
             return;
+        }               
+
+        public void MoveDown()
+        {
+            Position = new Vector2(Position.X, Position.Y + 2);
         }
 
-        public void MoveUp()
+        public void MoveLeft(float speed)
         {
-            Position = new Vector2(Position.X, Position.Y - 1);
+            Position = new Vector2(Position.X - speed, Position.Y + 1);
+            _animate = 2;
         }
 
-        public void MoveLeft()
+        public void MoveRight(float speed)
         {
-            Position = new Vector2(Position.X - 1, Position.Y);
+            Position = new Vector2(Position.X + speed, Position.Y + 1);
+            _animate = 3;
         }
 
-        public void MoveRight()
+        public void MoveUp(float speed)
         {
-            Position = new Vector2(Position.X + 1, Position.Y);
+            Position = new Vector2(Position.X, Position.Y - speed);
+            _animate = 1;
         }
 
         public override void Update(GameTime gameTime)
         {
             _lastFrame += gameTime.ElapsedGameTime.Milliseconds;
-            if (_lastFrame > _frameSpeed)
+            if ( _animate == 1)
             {
-                _lastFrame = 0;
-                _frameIndex++;
-                if (_frameIndex >= _birdInfo.Count - 2)     //dont include banking images in animation loop
+                if (_lastFrame > _frameSpeed && (_frameIndex < _birdInfo.Count - 2))
                 {
-                    _frameIndex = 0;
+                    _lastFrame = 0;
+                    _frameIndex++;
+                    if (_frameIndex >= _birdInfo.Count - 2)     //dont include banking images in animation loop
+                    {
+                        _frameIndex = 0;
+                    }
                 }
             }
+            else if (_animate == 2)
+            {
+                _frameIndex = 8;
+            }
+            else if (_animate == 3)
+            {
+                _frameIndex = 9;
+            }
+            else
+            {
+                _frameIndex = 0;
+                this.MoveDown();
+            }
+            _animate = 0;
         }
 
 

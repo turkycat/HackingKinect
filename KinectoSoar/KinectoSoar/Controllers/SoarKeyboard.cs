@@ -24,19 +24,20 @@ namespace KinectoSoar.Controllers
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            float speed = 3f;
 
             _currState = Keyboard.GetState();
-            if (_currState.IsKeyDown(Keys.A))
-            {
-                Resources.Instance.MoveBirdLeft();
-            }
-            if (_currState.IsKeyDown(Keys.D))
-            {
-                Resources.Instance.MoveBirdRight();
-            }
             if (_currState.IsKeyDown(Keys.W))
             {
-                Resources.Instance.MoveBirdUp();
+                Resources.Instance.MoveBirdUp(speed);
+            }
+            else if (_currState.IsKeyDown(Keys.A))
+            {
+                Resources.Instance.MoveBirdLeft(speed);
+            }
+            else if (_currState.IsKeyDown(Keys.D))
+            {
+                Resources.Instance.MoveBirdRight(speed);
             }
         }
     }
