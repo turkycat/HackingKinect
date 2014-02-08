@@ -27,10 +27,7 @@ namespace KinectoSoar
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private ScreenManager.ScreenManager screenManager;
-        private KinectSensor sensor;
 
-
-        int totalFrames = 0;
 
         #endregion
 
@@ -67,43 +64,6 @@ namespace KinectoSoar
             // flow of screens throughout the game.
             screenManager = new ScreenManager.ScreenManager(this);
             this.Components.Add(screenManager);
-
-
-            foreach (var potentialSensor in KinectSensor.KinectSensors)
-            {
-                if (potentialSensor.Status == KinectStatus.Connected)
-                {
-                    this.sensor = potentialSensor;
-                    break;
-                }
-            }
-
-            if (this.sensor != null)
-            {
-                // Turn on the skeleton stream to receive skeleton frames
-                this.sensor.SkeletonStream.Enable();
-
-                //we only care about the arms and above
-                this.sensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Seated;
-
-                // Add an event handler to be called whenever there is new color frame data
-                this.sensor.SkeletonFrameReady += this.SensorSkeletonFrameReady;
-
-                // Start the sensor!
-                try
-                {
-                    this.sensor.Start();
-                }
-                catch (IOException)
-                {
-                    this.sensor = null;
-                }
-            }
-
-            if (this.sensor == null )
-            {
-                //nothing to do
-            }
 
             base.Initialize();
         }
@@ -172,46 +132,7 @@ namespace KinectoSoar
 
         #region helper methods
 
-        /// <summary>
-        /// Event handler for Kinect sensor's SkeletonFrameReady event
-        /// </summary>
-        /// <param name="sender">object sending the event</param>
-        /// <param name="e">event arguments</param>
-        private void SensorSkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
-        {
-            Skeleton[] skeletons = new Skeleton[0];
 
-            using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
-            {
-                if (skeletonFrame != null)
-                {
-                    ++totalFrames;
-                    skeletons = new Skeleton[skeletonFrame.SkeletonArrayLength];
-                    skeletonFrame.CopySkeletonDataTo(skeletons);
-                }
-            }
-
-
-        }
-
-
-
-
-
-
-
-        /// <summary>
-        /// Execute shutdown tasks
-        /// </summary>
-        /// <param name="sender">object sending the event</param>
-        /// <param name="e">event arguments</param>
-        private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (null != this.sensor)
-            {
-                this.sensor.Stop();
-            }
-        }
 
         #endregion
     }
