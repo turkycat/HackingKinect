@@ -31,7 +31,10 @@ namespace KinectoSoar
         private SpriteReader.SpriteReader _reader;
 
         public bool GameOver { get; set; }
+        public float BorderDensity { get; set; }
         public Random Rand { get; private set; }
+
+        private SpriteManager.Bird _bird;
 
         #endregion
 
@@ -39,6 +42,26 @@ namespace KinectoSoar
 
         // I feel most of these are pretty self explanatory. If I saw 
         // a need for comments I put them in.
+
+        public void setBird(SpriteManager.Bird bird)
+        {
+            _bird = bird;
+        }
+
+        public void MoveBirdUp()
+        {
+            _bird.MoveUp();
+        }
+
+        public void MoveBirdLeft()
+        {
+            _bird.MoveLeft();
+        }
+
+        public void MoveBirdRight()
+        {
+            _bird.MoveRight();
+        }
 
         public void AddTexture(string key, Texture2D texture)
         {
