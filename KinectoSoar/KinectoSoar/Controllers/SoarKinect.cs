@@ -216,7 +216,8 @@ namespace KinectoSoar.Controllers
                             GameProperties.Instance.ResetGame();
                         break;
                     case "QUIT":
-                        base.Game.Exit();
+                        if (GameProperties.Instance.GameOver || GameProperties.Instance.Reset)
+                            base.Game.Exit();
                         break;
                 }
             }
