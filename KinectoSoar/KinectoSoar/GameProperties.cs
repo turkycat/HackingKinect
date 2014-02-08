@@ -63,6 +63,7 @@ namespace KinectoSoar
             Start = false;   //unnecessary but failsafe
             Ready = false;
             Score = 0;
+            Multiplier = 1;
         }
 
         #endregion

@@ -37,10 +37,6 @@ namespace KinectoSoar.SpriteManager
             fish = new Vector2(fish.X, fish.Y + _speed);
             if (Position.Y > _game.GraphicsDevice.Viewport.Height)
             {
-                if (!_empty)
-                {
-                    GameProperties.Instance.Multiplier = 1;
-                }
                 Set();
             }
         }

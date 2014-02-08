@@ -112,7 +112,7 @@ namespace KinectoSoar.SpriteManager
         {
             int elapsedMillis = gameTime.ElapsedGameTime.Milliseconds;
             _timer -= elapsedMillis;
-
+            _delay -= elapsedMillis;
             if (_animate == Animate.Flap)
             {
                 _lastFrame += elapsedMillis;
@@ -128,7 +128,6 @@ namespace KinectoSoar.SpriteManager
             }
             else if (_animate == Animate.Left)
             {
-                _delay -= elapsedMillis;
                 if (_delay < 0)
                 {
                     _frameIndex = 0;
@@ -139,7 +138,6 @@ namespace KinectoSoar.SpriteManager
             }
             else if (_animate == Animate.Right)
             {
-                _delay -= elapsedMillis;
                 if (_delay < 0)
                 {
                     _frameIndex = 0;
@@ -157,7 +155,7 @@ namespace KinectoSoar.SpriteManager
             if (_timer < 0)
             {
                 velocity = velocity * 0.9f;
-                if (velocity < -0.05)
+                if (velocity < -0.05 && _animate != Animate.Left && _animate != Animate.Right)
                 {
                     _animate = Animate.NONE;
                 }
