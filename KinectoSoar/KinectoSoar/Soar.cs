@@ -90,6 +90,7 @@ namespace KinectoSoar
             Resources.Instance.AddSound("EagleEat", Content.Load<SoundEffect>(@"Sounds/EagleEat"));
             Resources.Instance.AddSound("EagleFlap", Content.Load<SoundEffect>(@"Sounds/EagleFlap"));
             Resources.Instance.AddSound("EagleTurn", Content.Load<SoundEffect>(@"Sounds/EagleTurn"));
+            Resources.Instance.AddSound("RockMusic", Content.Load<SoundEffect>(@"Sounds/RockMusic"));
         }
 
         /// <summary>
