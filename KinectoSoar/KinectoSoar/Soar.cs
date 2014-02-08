@@ -18,14 +18,24 @@ namespace KinectoSoar
     /// </summary>
     public class Soar : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        #region Class Member Variables
 
-        SpriteFont cooperFont;
+        public static float Height;
+        public static float Width;
 
+
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private ScreenManager.ScreenManager screenManager;
         private KinectSensor sensor;
+
+
         int totalFrames = 0;
 
+        #endregion
+
+
+        #region constructor
         public Soar()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -47,6 +57,16 @@ namespace KinectoSoar
         /// </summary>
         protected override void Initialize()
         {
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.Services.AddService(typeof(SpriteBatch), spriteBatch);
+
+            // Add the screen manager component used to control the 
+            // flow of screens throughout the game.
+            screenManager = new ScreenManager.ScreenManager(this);
+            this.Components.Add(screenManager);
+
+
             foreach (var potentialSensor in KinectSensor.KinectSensors)
             {
                 if (potentialSensor.Status == KinectStatus.Connected)
@@ -86,15 +106,19 @@ namespace KinectoSoar
             base.Initialize();
         }
 
+        #endregion
+
+
+
+        #region Load/Unload Content
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            cooperFont = Content.Load<SpriteFont>("Cooper");
+            Resources.Instance.AddFont("Cooper", Content.Load<SpriteFont>("Cooper"));
+            Resources.Instance.AddTexture("Background", Content.Load<Texture2D>("Background"));
         }
 
         /// <summary>
@@ -117,7 +141,7 @@ namespace KinectoSoar
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+
 
             base.Update(gameTime);
         }
@@ -130,15 +154,20 @@ namespace KinectoSoar
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
-            spriteBatch.DrawString(cooperFont, "" + totalFrames, new Vector2(200, 200), Color.White);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, null);
+            base.Draw(gameTime);
             spriteBatch.End();
 
-            base.Draw(gameTime);
         }
 
+        #endregion
 
 
+
+
+
+
+        #region helper methods
 
         /// <summary>
         /// Event handler for Kinect sensor's SkeletonFrameReady event
@@ -180,5 +209,7 @@ namespace KinectoSoar
                 this.sensor.Stop();
             }
         }
+
+        #endregion
     }
 }

@@ -1,1 +1,2 @@
 Content\Cooper.xnb
+Content\Background.xnb

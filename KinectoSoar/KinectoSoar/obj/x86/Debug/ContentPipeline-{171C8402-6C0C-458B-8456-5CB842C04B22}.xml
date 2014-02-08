@@ -10,6 +10,15 @@
       <Output>U:\KinectHackathon\KinectoSoar\KinectoSoar\KinectoSoar\bin\x86\Debug\Content\Cooper.xnb</Output>
       <Time>2014-02-07T22:14:58-06:00</Time>
     </Item>
+    <Item>
+      <Source>Background.png</Source>
+      <Name>Background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>U:\KinectHackathon\KinectoSoar\KinectoSoar\KinectoSoar\bin\x86\Debug\Content\Background.xnb</Output>
+      <Time>2014-02-07T23:33:19-06:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{171C8402-6C0C-458B-8456-5CB842C04B22}</ContentProjectGUID>
