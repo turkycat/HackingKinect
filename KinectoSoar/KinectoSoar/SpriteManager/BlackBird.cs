@@ -76,6 +76,7 @@ namespace KinectoSoar.SpriteManager
                 Position = new Vector2(Position.X, Position.Y + 2);
                 if (Position.Y > _game.GraphicsDevice.Viewport.Height + HEIGHT)
                 {
+                    Resources.Instance.Score += 5;
                     SetRandomPosition();
                 }
             }
