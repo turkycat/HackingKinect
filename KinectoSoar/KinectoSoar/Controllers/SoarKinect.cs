@@ -109,12 +109,17 @@ namespace KinectoSoar.Controllers
                 speech.Add(new SemanticResultValue("kahh", "SCREECH"));
                 speech.Add(new SemanticResultValue("kaw", "SCREECH"));
                 speech.Add(new SemanticResultValue("caww", "SCREECH"));
+                speech.Add(new SemanticResultValue("attack", "SCREECH"));
                 speech.Add(new SemanticResultValue("caaaawww", "SCREECH"));
                 speech.Add(new SemanticResultValue("start", "START"));
                 speech.Add(new SemanticResultValue("begin", "START"));
                 speech.Add(new SemanticResultValue("murica", "START"));
                 speech.Add(new SemanticResultValue("america", "START"));
+                speech.Add(new SemanticResultValue("soar", "START"));
+                speech.Add(new SemanticResultValue("fly", "START"));
                 speech.Add(new SemanticResultValue("reset", "RESET"));
+                speech.Add(new SemanticResultValue("restart", "RESET"));
+                speech.Add(new SemanticResultValue("menu", "RESET"));
                 
                 var gb = new GrammarBuilder { Culture = ri.Culture };
                 gb.Append(speech);
@@ -261,7 +266,7 @@ namespace KinectoSoar.Controllers
                             if (Math.Abs(left.Y - right.Y) < 0.2f)
                             {
                                 if (left.Y < currentY && Math.Abs(left.Y - currentY) > 0.05f)
-                                    Resources.Instance.MoveBirdUp(40f * Math.Abs(left.Y - currentY));
+                                    Resources.Instance.MoveBirdUp(30f * Math.Abs(left.Y - currentY));
 
                                 currentY = left.Y;
                             }

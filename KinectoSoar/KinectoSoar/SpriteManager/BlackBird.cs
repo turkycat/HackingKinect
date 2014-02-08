@@ -101,8 +101,8 @@ namespace KinectoSoar.SpriteManager
             Rectangle dest = new Rectangle((int)Position.X - WIDTH / 2, (int)Position.Y - HEIGHT / 2, WIDTH, HEIGHT);
             Rectangle source = _birdInfo[_frameIndex].Position;
             base._spriteBatch.Draw(Resources.Instance.GetTexture( "BlackBirdSprite" ), dest, source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.1f);
-            DrawRect(new Rectangle((int)Position.X - WIDTH / 4, (int)Position.Y - HEIGHT / 2 + 55, WIDTH / 2, HEIGHT - 110));
-            DrawRect(tempBird);
+            //DrawRect(new Rectangle((int)Position.X - WIDTH / 4, (int)Position.Y - HEIGHT / 2 + 55, WIDTH / 2, HEIGHT - 110));
+            //DrawRect(tempBird);
         }
 
         private void SetRandomPosition()

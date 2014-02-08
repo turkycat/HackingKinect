@@ -14,13 +14,22 @@ namespace KinectoSoar.SpriteManager
 {
     public class Bird : Sprite
     {
+        enum Animate
+        {
+            NONE,
+            Flap,
+            Left,
+            Right
+        };
+
         private List<SpriteReader.SpriteInfo> _birdInfo;
+        private Animate _animate = Animate.NONE;
         private int _frameSpeed = 75;
         private int _lastFrame;
         private int _frameIndex = 0;
-        private int _animate = 0;
         private int _timer = 0;
-        private int _animateTime = 500;
+        private int _delay = 0;
+        private int _animateTime = 100;
         private float velocity = 0;
 
         private const int WIDTH = 200;
@@ -73,9 +82,8 @@ namespace KinectoSoar.SpriteManager
             {
                 float x = MathHelper.Clamp(Position.X - speed, Resources.Instance.BorderDensity, _game.GraphicsDevice.Viewport.Width - Resources.Instance.BorderDensity);
                 Position = new Vector2(x, Position.Y + 1);
-
-                _animate = 2;
-                //_timer = _animateTime / 2;
+                _animate = Animate.Left;
+                _delay = _animateTime;
             }
         }
 
@@ -85,8 +93,8 @@ namespace KinectoSoar.SpriteManager
             {
                 float x = MathHelper.Clamp(Position.X + speed, Resources.Instance.BorderDensity, _game.GraphicsDevice.Viewport.Width - Resources.Instance.BorderDensity);
                 Position = new Vector2(x, Position.Y + 1);
-                _animate = 3;
-                //_timer = _animateTime / 2;
+                _animate = Animate.Right;
+                _delay = _animateTime;
             }
         }
 
@@ -95,16 +103,18 @@ namespace KinectoSoar.SpriteManager
             if (!Resources.Instance.GameOver)
             {
                 velocity -= speed;
-                _animate = 1;
+                _animate = Animate.Flap;
                 _timer = _animateTime;
             }
         }
 
         public override void Update(GameTime gameTime)
         {
-            _lastFrame += gameTime.ElapsedGameTime.Milliseconds;
-            _timer -= gameTime.ElapsedGameTime.Milliseconds;
-            if ( _animate == 1)
+            int elapsedMillis = gameTime.ElapsedGameTime.Milliseconds;
+            _lastFrame += elapsedMillis;
+            _timer -= elapsedMillis;
+            _delay -= elapsedMillis;
+            if ( _animate == Animate.Flap )
             {
                 if (_lastFrame > _frameSpeed && (_frameIndex < _birdInfo.Count - 2))
                 {
@@ -116,27 +126,41 @@ namespace KinectoSoar.SpriteManager
                     }
                 }
             }
-            else if (_animate == 2)
+            else if (_animate == Animate.Left)
             {
-                _frameIndex = 8;
+                if (_delay < 0 )
+                {
+                    _frameIndex = 0;
+                    _animate = Animate.NONE;
+                }
+                else
+                    _frameIndex = 8;
             }
-            else if (_animate == 3)
+            else if (_animate == Animate.Right )
             {
-                _frameIndex = 9;
+                if (_delay < 0 )
+                {
+                    _frameIndex = 0;
+                    _animate = Animate.NONE;
+                }
+                else
+                    _frameIndex = 9;
             }
             else
             {
                 _frameIndex = 0;
             }
+            
+            //decrease velocity ( remember: it's negative to move up! )
             if (_timer < 0)
             {
-                velocity = velocity * 0.6f;
-                _animate = 0;
+                velocity = velocity * 0.9f;
+                if( velocity > -0.05 )_animate = Animate.NONE;
                 _timer += _animateTime;
             }
 
             CheckBottomBorder();
-            velocity = MathHelper.Clamp(velocity, -8, 2);
+            velocity = MathHelper.Clamp(velocity, -10, 2);
             float y = MathHelper.Clamp(Position.Y + velocity + 4, HEIGHT / 2, _game.GraphicsDevice.Viewport.Height * 2);
             Position = new Vector2(Position.X, y);
         }
@@ -146,7 +170,7 @@ namespace KinectoSoar.SpriteManager
         {
             Rectangle dest = new Rectangle((int)Position.X - WIDTH / 2, (int)Position.Y - HEIGHT / 2, WIDTH, HEIGHT);
             Rectangle source = _birdInfo[_frameIndex].Position;
-            base._spriteBatch.Draw(Resources.Instance.GetTexture( "BirdSprite" ), dest, source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.1f);
+            base._spriteBatch.Draw(Resources.Instance.GetTexture("BirdSprite"), dest, source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.1f);
         }
 
         private void CheckBottomBorder()

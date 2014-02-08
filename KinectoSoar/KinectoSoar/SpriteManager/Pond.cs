@@ -73,11 +73,11 @@ namespace KinectoSoar.SpriteManager
         public void Set()
         {
             randomizePosition();
-            //if (Resources.Instance.Rand.Next(2) == 0)
-           // {
-            //    empty = true;
-            //}
-            //else
+            if (Resources.Instance.Rand.Next(2) == 0)
+            {
+                _empty = true;
+            }
+            else
             {
                 _empty = false;
                 fish = new Vector2(Position.X + ( ( WIDTH - fishWidth ) / 2f ), Position.Y + ((HEIGHT - fishHeight) / 2f));
