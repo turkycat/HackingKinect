@@ -70,7 +70,7 @@ namespace KinectoSoar.SpriteManager
 
         public void MoveDown()
         {
-            if (!Resources.Instance.GameOver)
+            if (!GameProperties.Instance.GameOver)
             {
                 Position = new Vector2(Position.X, Position.Y + 2);
             }
@@ -78,9 +78,9 @@ namespace KinectoSoar.SpriteManager
 
         public void MoveLeft(float speed)
         {
-            if (!Resources.Instance.GameOver)
+            if (!GameProperties.Instance.GameOver)
             {
-                float x = MathHelper.Clamp(Position.X - speed, Resources.Instance.BorderDensity, _game.GraphicsDevice.Viewport.Width - Resources.Instance.BorderDensity);
+                float x = MathHelper.Clamp(Position.X - speed, GameProperties.Instance.BorderDensity, _game.GraphicsDevice.Viewport.Width - GameProperties.Instance.BorderDensity);
                 Position = new Vector2(x, Position.Y + 1);
                 _animate = Animate.Left;
                 _delay = _animateTime;
@@ -89,9 +89,9 @@ namespace KinectoSoar.SpriteManager
 
         public void MoveRight(float speed)
         {
-            if (!Resources.Instance.GameOver)
+            if (!GameProperties.Instance.GameOver)
             {
-                float x = MathHelper.Clamp(Position.X + speed, Resources.Instance.BorderDensity, _game.GraphicsDevice.Viewport.Width - Resources.Instance.BorderDensity);
+                float x = MathHelper.Clamp(Position.X + speed, GameProperties.Instance.BorderDensity, _game.GraphicsDevice.Viewport.Width - GameProperties.Instance.BorderDensity);
                 Position = new Vector2(x, Position.Y + 1);
                 _animate = Animate.Right;
                 _delay = _animateTime;
@@ -100,7 +100,7 @@ namespace KinectoSoar.SpriteManager
 
         public void MoveUp(float speed)
         {
-            if (!Resources.Instance.GameOver)
+            if (!GameProperties.Instance.GameOver)
             {
                 velocity -= speed;
                 _animate = Animate.Flap;
@@ -177,8 +177,8 @@ namespace KinectoSoar.SpriteManager
         {
             if (Position.Y - HEIGHT / 2 > _game.GraphicsDevice.Viewport.Height)
             {
-                Resources.Instance.GameOver = true;
-                Resources.Instance.Reset = false;
+                GameProperties.Instance.GameOver = true;
+                GameProperties.Instance.Reset = false;
                 Position = new Vector2(0, -5 * HEIGHT);
                 velocity = 0;
             }

@@ -41,12 +41,12 @@ namespace KinectoSoar.Controllers
 
         public override void Update(GameTime gameTime)
         {
-            if (Resources.Instance.Screech)
+            if (GameProperties.Instance.Screech)
             {
                 _lastFrame += gameTime.ElapsedGameTime.Milliseconds;
                 if (_lastFrame > _time)
                 {
-                    Resources.Instance.Screech = false;
+                    GameProperties.Instance.Screech = false;
                     _lastFrame = 0;
                 }
             }
@@ -202,18 +202,18 @@ namespace KinectoSoar.Controllers
                 {
                     case "SCREECH":
                         Resources.Instance.GetSound("EagleCry").Play();
-                        Resources.Instance.Screech = true;
+                        GameProperties.Instance.Screech = true;
 
                         break;
 
                     case "START":
-                        if (!Resources.Instance.Start && Resources.Instance.Ready)
+                        if (!GameProperties.Instance.Start && GameProperties.Instance.Ready)
                         {
-                            Resources.Instance.Start = true;
+                            GameProperties.Instance.Start = true;
                         }
                         break;
                     case "RESET":
-                        Resources.Instance.ResetGame();
+                        GameProperties.Instance.ResetGame();
                         break;
                 }
             }
@@ -250,33 +250,33 @@ namespace KinectoSoar.Controllers
                     skeletonFrame.CopySkeletonDataTo(skeletons);
                 }
 
-                Resources.Instance.Ready = false;
+                GameProperties.Instance.Ready = false;
                 if (skeletons.Length != 0 && skeletons[0] != null)
                 {
                     foreach (Skeleton skel in skeletons)
                     {
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
-                            if (!Resources.Instance.Start)
+                            if (!GameProperties.Instance.Start)
                             {
-                                Resources.Instance.Ready = true;
+                                GameProperties.Instance.Ready = true;
                             }
                             SkeletonPoint left = skel.Joints[JointType.WristLeft].Position;
                             SkeletonPoint right = skel.Joints[JointType.WristRight].Position;
                             if (Math.Abs(left.Y - right.Y) < 0.2f)
                             {
                                 if (left.Y < currentY && Math.Abs(left.Y - currentY) > 0.05f)
-                                    Resources.Instance.MoveBirdUp(30f * Math.Abs(left.Y - currentY));
+                                    GameProperties.Instance.MoveBirdUp(30f * Math.Abs(left.Y - currentY));
 
                                 currentY = left.Y;
                             }
                             else if ((left.Y - right.Y) < -0.4f)
                             {
-                                Resources.Instance.MoveBirdLeft(20f * (Math.Abs(right.Y - left.Y) - .5f));
+                                GameProperties.Instance.MoveBirdLeft(20f * (Math.Abs(right.Y - left.Y) - .5f));
                             }
                             else if ((left.Y - right.Y) > 0.4f)
                             {
-                                Resources.Instance.MoveBirdRight(20f * (Math.Abs(left.Y - right.Y) - .5f));
+                                GameProperties.Instance.MoveBirdRight(20f * (Math.Abs(left.Y - right.Y) - .5f));
                             }
                         }
                         

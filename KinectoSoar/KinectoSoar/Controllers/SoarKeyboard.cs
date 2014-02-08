@@ -29,15 +29,15 @@ namespace KinectoSoar.Controllers
             _currState = Keyboard.GetState();
             if (_currState.IsKeyDown(Keys.W))
             {
-                Resources.Instance.MoveBirdUp(speed);
+                GameProperties.Instance.MoveBirdUp(speed);
             }
             else if (_currState.IsKeyDown(Keys.A))
             {
-                Resources.Instance.MoveBirdLeft(speed);
+                GameProperties.Instance.MoveBirdLeft(speed);
             }
             else if (_currState.IsKeyDown(Keys.D))
             {
-                Resources.Instance.MoveBirdRight(speed);
+                GameProperties.Instance.MoveBirdRight(speed);
             }
         }
     }

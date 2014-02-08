@@ -20,7 +20,7 @@ namespace KinectoSoar.SpriteManager
 
         public Background( Game game, SpriteBatch spriteBatch ) : base( game, spriteBatch )
         {
-            Resources.Instance.BorderDensity = ( game.GraphicsDevice.Viewport.Width / 90f ) * 7.5f;
+            GameProperties.Instance.BorderDensity = ( game.GraphicsDevice.Viewport.Width / 90f ) * 7.5f;
             this._game = game;
             this.speed = 4;
         }

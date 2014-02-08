@@ -44,7 +44,7 @@ namespace KinectoSoar.SpriteManager
 
         public void randomizePosition()
         {
-            int x = Resources.Instance.Rand.Next((int)Resources.Instance.BorderDensity, (int)(_game.GraphicsDevice.Viewport.Width - WIDTH - Resources.Instance.BorderDensity));
+            int x = Resources.Instance.Rand.Next((int)GameProperties.Instance.BorderDensity, (int)(_game.GraphicsDevice.Viewport.Width - WIDTH - GameProperties.Instance.BorderDensity));
             int y = -Resources.Instance.Rand.Next(HEIGHT * 2, 3000);
             Position = new Vector2(x, y);
         }
@@ -55,7 +55,7 @@ namespace KinectoSoar.SpriteManager
         {
             Vector2 fishMid = new Vector2(fish.X + (fishWidth / 2f), fish.Y + (fishHeight / 2f));
             float distance = Vector2.Distance(sprite.Position, fishMid);
-            if (!_empty && distance <= 100 && Resources.Instance.Screech)
+            if (!_empty && distance <= 100 && GameProperties.Instance.Screech)
             {
                 return true;
             }
@@ -65,7 +65,7 @@ namespace KinectoSoar.SpriteManager
         public override void HandleCollision(Sprite sprite)
         {
             _empty = true;
-            Resources.Instance.Score += 15;
+            GameProperties.Instance.Score += 15;
             return;
         }
 

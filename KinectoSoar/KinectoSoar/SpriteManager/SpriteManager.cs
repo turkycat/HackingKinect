@@ -41,7 +41,7 @@ namespace KinectoSoar.SpriteManager
 
         public override void Update(GameTime gameTime)
         {
-            if (!Resources.Instance.GameOver)
+            if (!GameProperties.Instance.GameOver)
             {
                 // As long as the game is not over or paused then process the sprite information,
                 // and check and notify classes of collisions.

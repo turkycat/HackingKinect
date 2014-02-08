@@ -28,20 +28,9 @@ namespace KinectoSoar
         private Dictionary<string, Texture2D> _textures;
         private Dictionary<string, SoundEffect> _sounds;
         private Dictionary<string, SpriteFont> _fonts;
+        public Random Rand { get; private set; }
         private SpriteReader.SpriteReader _reader;
         private SpriteReader.SpriteReader _blackReader;
-
-        public bool GameOver { get; set; }
-        public float BorderDensity { get; set; }
-        public Random Rand { get; private set; }
-        public bool Start { get; set; }
-        public bool Ready { get; set; }
-        public bool Reset { get; set; }
-        public bool Screech { get; set; }
-        public int HighScore = 0;
-        public int Score = 0;
-
-        private SpriteManager.Bird _bird;
 
         #endregion
 
@@ -50,34 +39,7 @@ namespace KinectoSoar
         // I feel most of these are pretty self explanatory. If I saw 
         // a need for comments I put them in.
 
-        public void setBird(SpriteManager.Bird bird)
-        {
-            _bird = bird;
-        }
-
-        public void MoveBirdUp(float speed)
-        {
-            if (_bird != null)
-            {
-                _bird.MoveUp(speed);
-            }
-        }
-
-        public void MoveBirdLeft(float speed)
-        {
-            if (_bird != null)
-            {
-                _bird.MoveLeft(speed);
-            }
-        }
-
-        public void MoveBirdRight(float speed)
-        {
-            if (_bird != null)
-            {
-                _bird.MoveRight(speed);
-            }
-        }
+        
 
         public void AddTexture(string key, Texture2D texture)
         {
@@ -113,14 +75,6 @@ namespace KinectoSoar
             if (!_fonts.ContainsKey(key))
                 return null;
             return _fonts[key];
-        }
-
-
-        public void ResetGame()
-        {
-            Resources.Instance.Reset = true;
-            Resources.Instance.Start = false;   //unnecessary but failsafe
-            Resources.Instance.Ready = false;
         }
 
         /// <summary>
@@ -169,10 +123,6 @@ namespace KinectoSoar
             _sounds = new Dictionary<string, SoundEffect>();
             _fonts = new Dictionary<string, SpriteFont>();
             Rand = new Random();
-            Start = false;
-            Reset = false;
-            Ready = false;
-            Screech = false;
         }
 
         #endregion
