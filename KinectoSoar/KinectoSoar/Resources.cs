@@ -29,6 +29,7 @@ namespace KinectoSoar
         private Dictionary<string, SoundEffect> _sounds;
         private Dictionary<string, SpriteFont> _fonts;
         private SpriteReader.SpriteReader _reader;
+        private SpriteReader.SpriteReader _blackReader;
 
         public bool GameOver { get; set; }
         public float BorderDensity { get; set; }
@@ -145,6 +146,21 @@ namespace KinectoSoar
             _sounds = new Dictionary<string, SoundEffect>();
             _fonts = new Dictionary<string, SpriteFont>();
             Rand = new Random();
+        }
+
+        #endregion
+
+
+        #region Black Bird Sprite Reader Methods
+
+        public void SetSpriteBlackReader(SpriteReader.SpriteReader reader)
+        {
+            _blackReader = reader;
+        }
+
+        public SpriteReader.SpriteInfo GetSpriteBlackInfo(string key)
+        {
+            return _blackReader.getSpriteInfo(key);
         }
 
         #endregion

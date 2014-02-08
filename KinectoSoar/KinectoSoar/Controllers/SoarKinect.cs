@@ -14,7 +14,9 @@ namespace KinectoSoar.Controllers
 {
     using Microsoft.Kinect;
     using Microsoft.Speech.Recognition;
+    //using Microsoft.Speech.AudioFormat;
     using System.IO;
+    using Microsoft.Speech.AudioFormat;
 
     public class SoarKinect : Microsoft.Xna.Framework.DrawableGameComponent
     {
@@ -23,21 +25,19 @@ namespace KinectoSoar.Controllers
 
         private SpriteBatch _spriteBatch;
 
-        private float highestY = 0f;
-
 
         //TODO delete this
         int totalFrames = 0;
         float distanceX = 0;
         float distanceY = 0;
         float distanceZ = 0;
+
         float currentY = 0;
 
 
 
         public SoarKinect( Game game ) : base( game )
         {
-
             _spriteBatch = (SpriteBatch)game.Services.GetService(typeof(SpriteBatch));
         }
 
@@ -51,7 +51,6 @@ namespace KinectoSoar.Controllers
 
         public override void Initialize()
         {
-
             foreach (var potentialSensor in KinectSensor.KinectSensors)
             {
                 if (potentialSensor.Status == KinectStatus.Connected)
@@ -88,6 +87,45 @@ namespace KinectoSoar.Controllers
                 //nothing to do
             }
 
+            //speech recognizer
+            RecognizerInfo ri = GetKinectRecognizer();
+
+            if (ri != null)
+            {
+                this.speechEngine = new SpeechRecognitionEngine(ri.Id);
+
+                var speech = new Choices();
+                speech.Add(new SemanticResultValue("kah", "SCREECH"));
+                speech.Add(new SemanticResultValue("caw", "SCREECH"));
+                speech.Add(new SemanticResultValue("cah", "SCREECH"));
+                speech.Add(new SemanticResultValue("cahh", "SCREECH"));
+                speech.Add(new SemanticResultValue("kahh", "SCREECH"));
+                speech.Add(new SemanticResultValue("kaw", "SCREECH"));
+                speech.Add(new SemanticResultValue("caww", "SCREECH"));
+                speech.Add(new SemanticResultValue("caaaawww", "SCREECH"));
+                speech.Add(new SemanticResultValue("start", "START"));
+                speech.Add(new SemanticResultValue("begin", "START"));
+                speech.Add(new SemanticResultValue("murica", "START"));
+                speech.Add(new SemanticResultValue("america", "START"));
+                
+                var gb = new GrammarBuilder { Culture = ri.Culture };
+                gb.Append(speech);
+                
+                var g = new Grammar(gb);
+
+                speechEngine.LoadGrammar(g);
+                speechEngine.SpeechRecognized += SpeechRecognized;
+                speechEngine.SpeechRecognitionRejected += SpeechRejected;
+
+                speechEngine.SetInputToAudioStream(
+                    _sensor.AudioSource.Start(), new SpeechAudioFormatInfo(EncodingFormat.Pcm, 16000, 16, 1, 32000, 2, null));
+                speechEngine.RecognizeAsync(RecognizeMode.Multiple);
+            }
+            else
+            {
+
+            }
+
             base.Initialize();
         }
 
@@ -102,6 +140,80 @@ namespace KinectoSoar.Controllers
             base.Draw(gameTime);
         }
 
+
+
+
+
+        #region Voice Recognition
+
+
+        /// <summary>
+        /// Gets the metadata for the speech recognizer (acoustic model) most suitable to
+        /// process audio from Kinect device.
+        /// </summary>
+        /// <returns>
+        /// RecognizerInfo if found, <code>null</code> otherwise.
+        /// </returns>
+        private static RecognizerInfo GetKinectRecognizer()
+        {
+            foreach (RecognizerInfo recognizer in SpeechRecognitionEngine.InstalledRecognizers())
+            {
+                string value;
+                recognizer.AdditionalInfo.TryGetValue("Kinect", out value);
+                if ("True".Equals(value, StringComparison.OrdinalIgnoreCase) && "en-US".Equals(recognizer.Culture.Name, StringComparison.OrdinalIgnoreCase))
+                {
+                    return recognizer;
+                }
+            }
+
+            return null;
+        }
+
+
+
+
+        /// <summary>
+        /// Handler for recognized speech events.
+        /// </summary>
+        /// <param name="sender">object sending the event.</param>
+        /// <param name="e">event arguments.</param>
+        private void SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            // Speech utterance confidence below which we treat speech as if it hadn't been heard
+            const double ConfidenceThreshold = 0.2;
+
+
+            if (e.Result.Confidence >= ConfidenceThreshold)
+            {
+                switch (e.Result.Semantics.Value.ToString())
+                {
+                    case "SCREECH":
+                        Resources.Instance.GetSound("EagleCry").Play();
+                        break;
+
+                    case "START":
+                        //put start event code here
+                        break;
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handler for rejected speech events.
+        /// </summary>
+        /// <param name="sender">object sending the event.</param>
+        /// <param name="e">event arguments.</param>
+        private void SpeechRejected(object sender, SpeechRecognitionRejectedEventArgs e)
+        {
+            //do nothing
+        }
+
+
+        #endregion
+
+
+        #region Skeleton Callback
 
         /**
          * 
@@ -153,6 +265,7 @@ namespace KinectoSoar.Controllers
 
         }
 
+        #endregion
 
 
 

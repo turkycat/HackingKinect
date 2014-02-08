@@ -43,6 +43,7 @@ namespace KinectoSoar
             graphics.PreferredBackBufferHeight = 900;
 
             Resources.Instance.SetSpriteReader(new SpriteReader.SpriteReader(Content.RootDirectory + @"\", "BirdSprite.xml"));
+            Resources.Instance.SetSpriteBlackReader(new SpriteReader.SpriteReader(Content.RootDirectory + @"\", "BlackBirdSprite.xml"));
 
 
             graphics.ApplyChanges();
@@ -82,6 +83,7 @@ namespace KinectoSoar
             Resources.Instance.AddFont("Cooper", Content.Load<SpriteFont>("Cooper"));
             Resources.Instance.AddTexture("Background", Content.Load<Texture2D>(@"Sprites/Background"));
             Resources.Instance.AddTexture("BirdSprite", Content.Load<Texture2D>(@"Sprites/BirdSprite"));
+            Resources.Instance.AddTexture("BlackBirdSprite", Content.Load<Texture2D>(@"Sprites/BlackBirdSprite"));
             Resources.Instance.AddTexture("Water", Content.Load<Texture2D>(@"Sprites/Water"));
             Resources.Instance.AddTexture("Fish", Content.Load<Texture2D>(@"Sprites/Fish"));
 

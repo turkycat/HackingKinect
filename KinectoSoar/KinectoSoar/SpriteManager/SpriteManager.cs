@@ -46,11 +46,14 @@ namespace KinectoSoar.SpriteManager
             foreach (Sprite sprite in _sprites)
             {
                 sprite.Update(gameTime);
-                foreach (Sprite check in _sprites)
+                if (sprite.Name == "Bird")
                 {
-                    if (check.IsColliding(sprite))
+                    foreach (Sprite check in _sprites)
                     {
-                        check.HandleCollision(sprite);
+                        if (check.IsColliding(sprite))
+                        {
+                            check.HandleCollision(sprite);
+                        }
                     }
                 }
             }
