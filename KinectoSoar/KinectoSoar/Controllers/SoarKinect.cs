@@ -13,11 +13,14 @@ using Microsoft.Xna.Framework.Media;
 namespace KinectoSoar.Controllers
 {
     using Microsoft.Kinect;
+    using Microsoft.Speech.Recognition;
     using System.IO;
 
     public class SoarKinect : Microsoft.Xna.Framework.DrawableGameComponent
     {
         private KinectSensor _sensor;
+        private SpeechRecognitionEngine speechEngine;
+
         private SpriteBatch _spriteBatch;
 
         private float highestY = 0f;
