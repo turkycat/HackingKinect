@@ -38,7 +38,7 @@ namespace KinectoSoar.ScreenManager
             // the first screen that is present in the game
 
             // TODO: set first screen
-            _activeScreen = new GameScreen(game, _spriteBatch);
+            _activeScreen = new StartScreen(game, _spriteBatch);
         }
 
         public override void Update(GameTime gameTime)

@@ -81,6 +81,7 @@ namespace KinectoSoar
         protected override void LoadContent()
         {
             Resources.Instance.AddFont("Cooper", Content.Load<SpriteFont>("Cooper"));
+            Resources.Instance.AddFont("TitleFont", Content.Load<SpriteFont>("TitleFont"));
             Resources.Instance.AddTexture("Background", Content.Load<Texture2D>(@"Sprites/Background"));
             Resources.Instance.AddTexture("BirdSprite", Content.Load<Texture2D>(@"Sprites/BirdSprite"));
             Resources.Instance.AddTexture("BlackBirdSprite", Content.Load<Texture2D>(@"Sprites/BlackBirdSprite"));

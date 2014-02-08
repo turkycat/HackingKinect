@@ -14,7 +14,6 @@ namespace KinectoSoar.ScreenManager
     class GameScreen : Screen
     {
         private KeyboardState _currState;
-        private KeyboardState _prevState;
         private SpriteManager.SpriteManager _spriteManager;
         private Controllers.SoarKeyboard _keyboard;
         private Controllers.SoarKinect _kinect;
@@ -23,8 +22,6 @@ namespace KinectoSoar.ScreenManager
         public GameScreen(Game game, SpriteBatch spriteBatch)
             : base(game, spriteBatch)
         {
-            this._currState = Keyboard.GetState();
-            this._prevState = _currState;
             this._spriteManager = new SpriteManager.SpriteManager(game);
             this._keyboard = new Controllers.SoarKeyboard(game);
             this._kinect = new Controllers.SoarKinect(game);
@@ -46,6 +43,12 @@ namespace KinectoSoar.ScreenManager
         public override void Draw()
         {
             base._spriteBatch.DrawString(Resources.Instance.GetFont("Cooper"), "game screen", new Vector2(20, 20), Color.White);
+            if (Resources.Instance.GameOver)
+            {
+                Vector2 fontDimensions = Resources.Instance.GetFont("Cooper").MeasureString("Game Over") * 0.5f;
+                Vector2 screenSize = new Vector2(_game.GraphicsDevice.Viewport.Width, _game.GraphicsDevice.Viewport.Height);
+                _spriteBatch.DrawString(Resources.Instance.GetFont("Cooper"), "Game Over", new Vector2(screenSize.X / 2 - fontDimensions.X, screenSize.Y * 0.3f - fontDimensions.Y), Color.Yellow);
+            }
         }
 
         public override void Update(ref Screen activeScreen)
@@ -58,11 +61,15 @@ namespace KinectoSoar.ScreenManager
                 _backgroundMusic.Play();
             }
             _currState = Keyboard.GetState();
-            if (_currState != _prevState && _currState.IsKeyDown(Keys.Enter))
+            if (Resources.Instance.GameOver && _currState.IsKeyDown(Keys.Enter))
             {
-                activeScreen = new ScreenTwo(_game, _spriteBatch);
+                _game.Components.Remove(_kinect);
+                _game.Components.Remove(_keyboard);
+                _game.Components.Remove(_spriteManager);
+                _backgroundMusic.Stop();
+                Resources.Instance.GameOver = false;
+                activeScreen = new StartScreen(_game, _spriteBatch);
             }
-            _prevState = _currState;
         }
     }
 }

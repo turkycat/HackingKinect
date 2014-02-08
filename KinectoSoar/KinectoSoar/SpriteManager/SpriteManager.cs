@@ -41,18 +41,21 @@ namespace KinectoSoar.SpriteManager
 
         public override void Update(GameTime gameTime)
         {
-            // As long as the game is not over or paused then process the sprite information,
-            // and check and notify classes of collisions.
-            foreach (Sprite sprite in _sprites)
+            if (!Resources.Instance.GameOver)
             {
-                sprite.Update(gameTime);
-                if (sprite.Name == "Bird")
+                // As long as the game is not over or paused then process the sprite information,
+                // and check and notify classes of collisions.
+                foreach (Sprite sprite in _sprites)
                 {
-                    foreach (Sprite check in _sprites)
+                    sprite.Update(gameTime);
+                    if (sprite.Name == "Bird")
                     {
-                        if (check.IsColliding(sprite))
+                        foreach (Sprite check in _sprites)
                         {
-                            check.HandleCollision(sprite);
+                            if (check.IsColliding(sprite))
+                            {
+                                check.HandleCollision(sprite);
+                            }
                         }
                     }
                 }
