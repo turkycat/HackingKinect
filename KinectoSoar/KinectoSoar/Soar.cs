@@ -86,6 +86,7 @@ namespace KinectoSoar
             Resources.Instance.AddTexture("Water", Content.Load<Texture2D>(@"Sprites/Water"));
             Resources.Instance.AddTexture("Fish", Content.Load<Texture2D>(@"Sprites/Fish"));
             Resources.Instance.AddTexture("Ready", Content.Load<Texture2D>(@"Sprites/Ready"));
+            Resources.Instance.AddTexture("LineTexture", Content.Load<Texture2D>(@"Sprites/LineTexture"));
 
             Resources.Instance.AddSound("EagleCry", Content.Load<SoundEffect>(@"Sounds/EagleCry"));
             Resources.Instance.AddSound("EagleCollide", Content.Load<SoundEffect>(@"Sounds/EagleCollide"));
