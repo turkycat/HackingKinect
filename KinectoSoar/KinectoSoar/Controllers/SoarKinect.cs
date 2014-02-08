@@ -129,18 +129,18 @@ namespace KinectoSoar.Controllers
                             distanceX = left.X - right.X;
                             if (Math.Abs(left.Y - right.Y) < 0.2f)
                             {
-                                if( Math.Abs( left.Y - currentY ) > 0.05f )
-                                    Resources.Instance.MoveBirdUp();
+                                if( left.Y < currentY && Math.Abs( left.Y - currentY ) > 0.05f )
+                                    Resources.Instance.MoveBirdUp(140f * Math.Abs(left.Y - currentY));
                                 
                                 currentY = left.Y;
                             }
-                            else if ((left.Y - right.Y) < -0.5f)
+                            else if ((left.Y - right.Y) < -0.4f)
                             {
-                                Resources.Instance.MoveBirdLeft();
+                                Resources.Instance.MoveBirdLeft(20f * (Math.Abs(right.Y - left.Y) - .5f));
                             }
-                            else if ((left.Y - right.Y) > 0.5f)
+                            else if ((left.Y - right.Y) > 0.4f)
                             {
-                                Resources.Instance.MoveBirdRight();
+                                Resources.Instance.MoveBirdRight(20f * (Math.Abs(left.Y - right.Y) - .5f));
                             }
                         }
                     }
