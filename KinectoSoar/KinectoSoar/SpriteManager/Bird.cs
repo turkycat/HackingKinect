@@ -125,7 +125,7 @@ namespace KinectoSoar.SpriteManager
             CheckBottomBorder();
             float y = MathHelper.Clamp(Position.Y + velocity + 4, HEIGHT / 2, _game.GraphicsDevice.Viewport.Height * 2);
             Position = new Vector2(Position.X, y);
-            velocity = MathHelper.Clamp(velocity, -10, 2);
+            velocity = MathHelper.Clamp(velocity, -8, 2);
 
         }
 
