@@ -18,20 +18,14 @@ namespace KinectoSoar.Controllers
     using System.IO;
     using Microsoft.Speech.AudioFormat;
 
-    public class SoarKinect : Microsoft.Xna.Framework.DrawableGameComponent
+    public class SoarKinect : Microsoft.Xna.Framework.GameComponent
     {
         private KinectSensor _sensor;
         private SpeechRecognitionEngine speechEngine;
 
         private SpriteBatch _spriteBatch;
 
-
-        //TODO delete this
-        int totalFrames = 0;
-        float distanceX = 0;
-        float distanceY = 0;
-        float distanceZ = 0;
-
+        //used to verify that the arms are moving downward when detecting flapping
         float currentY = 0;
 
 
@@ -107,6 +101,7 @@ namespace KinectoSoar.Controllers
                 speech.Add(new SemanticResultValue("begin", "START"));
                 speech.Add(new SemanticResultValue("murica", "START"));
                 speech.Add(new SemanticResultValue("america", "START"));
+                speech.Add(new SemanticResultValue("reset", "RESET"));
                 
                 var gb = new GrammarBuilder { Culture = ri.Culture };
                 gb.Append(speech);
@@ -130,7 +125,7 @@ namespace KinectoSoar.Controllers
         }
 
 
-
+        /*
         public override void Draw(GameTime gameTime)
         {
             _spriteBatch.DrawString(Resources.Instance.GetFont("Cooper"), "X: " + distanceX.ToString(), new Vector2(50, 200), Color.White);
@@ -139,7 +134,7 @@ namespace KinectoSoar.Controllers
             _spriteBatch.DrawString(Resources.Instance.GetFont("Cooper"), "c: " + currentY.ToString(), new Vector2(50, 350), Color.White);
             base.Draw(gameTime);
         }
-
+        */
 
 
 
@@ -192,9 +187,14 @@ namespace KinectoSoar.Controllers
                         break;
 
                     case "START":
-                        //put start event code here
+                        if (!Resources.Instance.Start && Resources.Instance.Ready)
+                        {
+                            Resources.Instance.Start = true;
+                        }
                         break;
-
+                    case "RESET":
+                        Resources.Instance.ResetGame();
+                        break;
                 }
             }
         }
@@ -226,27 +226,28 @@ namespace KinectoSoar.Controllers
             {
                 if (skeletonFrame != null)
                 {
-                    ++totalFrames;
                     skeletons = new Skeleton[skeletonFrame.SkeletonArrayLength];
                     skeletonFrame.CopySkeletonDataTo(skeletons);
                 }
 
+                Resources.Instance.Ready = false;
                 if (skeletons.Length != 0 && skeletons[0] != null)
                 {
                     foreach (Skeleton skel in skeletons)
                     {
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
+                            if (!Resources.Instance.Start)
+                            {
+                                Resources.Instance.Ready = true;
+                            }
                             SkeletonPoint left = skel.Joints[JointType.WristLeft].Position;
                             SkeletonPoint right = skel.Joints[JointType.WristRight].Position;
-                            distanceY = left.Y - right.Y;
-                            distanceZ = left.Z - right.Z;
-                            distanceX = left.X - right.X;
                             if (Math.Abs(left.Y - right.Y) < 0.2f)
                             {
-                                if( left.Y < currentY && Math.Abs( left.Y - currentY ) > 0.05f )
-                                    Resources.Instance.MoveBirdUp(140f * Math.Abs(left.Y - currentY));
-                                
+                                if (left.Y < currentY && Math.Abs(left.Y - currentY) > 0.05f)
+                                    Resources.Instance.MoveBirdUp(40f * Math.Abs(left.Y - currentY));
+
                                 currentY = left.Y;
                             }
                             else if ((left.Y - right.Y) < -0.4f)
@@ -258,6 +259,7 @@ namespace KinectoSoar.Controllers
                                 Resources.Instance.MoveBirdRight(20f * (Math.Abs(left.Y - right.Y) - .5f));
                             }
                         }
+                        
                     }
                 }
             }

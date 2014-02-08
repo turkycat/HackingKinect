@@ -19,6 +19,10 @@ namespace KinectoSoar.ScreenManager
         public StartScreen(Game game, SpriteBatch sprite)
             : base(game, sprite)
         {
+            Resources.Instance.Start = false;
+            Resources.Instance.Reset = false;
+            Resources.Instance.Ready = false;
+            Resources.Instance.GameOver = false;
             _currentState = Keyboard.GetState();
             _prevState = _currentState;
         }
@@ -31,6 +35,12 @@ namespace KinectoSoar.ScreenManager
                 activeScreen = new GameScreen(_game, _spriteBatch);
             }
             _prevState = _currentState;
+
+            if (Resources.Instance.Start)
+            {
+                Resources.Instance.Start = false;
+                activeScreen = new GameScreen(_game, _spriteBatch);
+            }
         }
         public override void Draw()
         {
@@ -40,6 +50,11 @@ namespace KinectoSoar.ScreenManager
 
             Rectangle background = new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y);
             _spriteBatch.Draw(Resources.Instance.GetTexture("Background"), background, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1.0f);
+            if( Resources.Instance.Ready )
+            {
+                Texture2D texture = Resources.Instance.GetTexture( "Ready" );
+                _spriteBatch.Draw(texture, new Rectangle(((int)screenSize.X - 300) / 2, ((int)screenSize.Y - 200) / 2, 300, 300), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
+            }
         }
 
     }

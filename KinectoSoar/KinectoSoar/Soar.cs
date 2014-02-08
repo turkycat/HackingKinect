@@ -23,14 +23,12 @@ namespace KinectoSoar
         public static float Height;
         public static float Width;
 
-
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private ScreenManager.ScreenManager screenManager;
-
+        private ScreenManager.ScreenManager _screenManager;
+        private Controllers.SoarKinect _kinect;
 
         #endregion
-
 
         #region constructor
         public Soar()
@@ -63,15 +61,15 @@ namespace KinectoSoar
 
             // Add the screen manager component used to control the 
             // flow of screens throughout the game.
-            screenManager = new ScreenManager.ScreenManager(this);
-            this.Components.Add(screenManager);
+            _screenManager = new ScreenManager.ScreenManager(this);
+            _kinect = new Controllers.SoarKinect(this);
+            this.Components.Add(_screenManager);
+            this.Components.Add(_kinect);
 
             base.Initialize();
         }
 
         #endregion
-
-
 
         #region Load/Unload Content
         /// <summary>
@@ -87,6 +85,7 @@ namespace KinectoSoar
             Resources.Instance.AddTexture("BlackBirdSprite", Content.Load<Texture2D>(@"Sprites/BlackBirdSprite"));
             Resources.Instance.AddTexture("Water", Content.Load<Texture2D>(@"Sprites/Water"));
             Resources.Instance.AddTexture("Fish", Content.Load<Texture2D>(@"Sprites/Fish"));
+            Resources.Instance.AddTexture("Ready", Content.Load<Texture2D>(@"Sprites/Ready"));
 
             Resources.Instance.AddSound("EagleCry", Content.Load<SoundEffect>(@"Sounds/EagleCry"));
             Resources.Instance.AddSound("EagleCollide", Content.Load<SoundEffect>(@"Sounds/EagleCollide"));
@@ -136,11 +135,6 @@ namespace KinectoSoar
         }
 
         #endregion
-
-
-
-
-
 
         #region helper methods
 

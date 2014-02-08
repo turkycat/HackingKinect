@@ -54,6 +54,8 @@ namespace KinectoSoar.SpriteManager
 
         public override void HandleCollision(Sprite sprite)
         {
+            Resources.Instance.Reset = false;
+            Resources.Instance.Start = false;
             Resources.Instance.GameOver = true;
         }
 
@@ -99,6 +101,7 @@ namespace KinectoSoar.SpriteManager
         {
             int screenWidth = _game.GraphicsDevice.Viewport.Width;
             int x = Resources.Instance.Rand.Next(screenWidth / 4, screenWidth / 4 * 3);
+            _waitTime = Resources.Instance.Rand.Next(1000, 6000);
             Position = new Vector2(x, -1 * HEIGHT);
             _wait = true;
         }

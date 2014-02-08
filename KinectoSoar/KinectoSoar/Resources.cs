@@ -34,6 +34,9 @@ namespace KinectoSoar
         public bool GameOver { get; set; }
         public float BorderDensity { get; set; }
         public Random Rand { get; private set; }
+        public bool Start { get; set; }
+        public bool Ready { get; set; }
+        public bool Reset { get; set; }
 
         private SpriteManager.Bird _bird;
 
@@ -51,17 +54,26 @@ namespace KinectoSoar
 
         public void MoveBirdUp(float speed)
         {
-            _bird.MoveUp(speed);
+            if (_bird != null)
+            {
+                _bird.MoveUp(speed);
+            }
         }
 
         public void MoveBirdLeft(float speed)
         {
-            _bird.MoveLeft(speed);
+            if (_bird != null)
+            {
+                _bird.MoveLeft(speed);
+            }
         }
 
         public void MoveBirdRight(float speed)
         {
-            _bird.MoveRight(speed);
+            if (_bird != null)
+            {
+                _bird.MoveRight(speed);
+            }
         }
 
         public void AddTexture(string key, Texture2D texture)
@@ -98,6 +110,14 @@ namespace KinectoSoar
             if (!_fonts.ContainsKey(key))
                 return null;
             return _fonts[key];
+        }
+
+
+        public void ResetGame()
+        {
+            Resources.Instance.Reset = true;
+            Resources.Instance.Start = false;   //unnecessary but failsafe
+            Resources.Instance.Ready = false;
         }
 
         /// <summary>
@@ -146,6 +166,9 @@ namespace KinectoSoar
             _sounds = new Dictionary<string, SoundEffect>();
             _fonts = new Dictionary<string, SpriteFont>();
             Rand = new Random();
+            Start = false;
+            Reset = false;
+            Ready = false;
         }
 
         #endregion

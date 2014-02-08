@@ -40,8 +40,9 @@ namespace KinectoSoar.SpriteManager
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("Bird8"));
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("left"));
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("right"));
-            this.Position = new Vector2((game.GraphicsDevice.Viewport.Width) / 2f, game.GraphicsDevice.Viewport.Height - HEIGHT * 2 );
+            this.Position = new Vector2((game.GraphicsDevice.Viewport.Width) / 2f, game.GraphicsDevice.Viewport.Height / 2  );
             _timer = _animateTime;
+            velocity = 0;
             
         }
         
@@ -60,31 +61,43 @@ namespace KinectoSoar.SpriteManager
 
         public void MoveDown()
         {
-            Position = new Vector2(Position.X, Position.Y + 2);
+            if (!Resources.Instance.GameOver)
+            {
+                Position = new Vector2(Position.X, Position.Y + 2);
+            }
         }
 
         public void MoveLeft(float speed)
         {
-            float x = MathHelper.Clamp(Position.X - speed, Resources.Instance.BorderDensity, _game.GraphicsDevice.Viewport.Width - Resources.Instance.BorderDensity);
-            Position = new Vector2(x, Position.Y + 1);
-            
-            _animate = 2;
-            //_timer = _animateTime / 2;
+            if (!Resources.Instance.GameOver)
+            {
+                float x = MathHelper.Clamp(Position.X - speed, Resources.Instance.BorderDensity, _game.GraphicsDevice.Viewport.Width - Resources.Instance.BorderDensity);
+                Position = new Vector2(x, Position.Y + 1);
+
+                _animate = 2;
+                //_timer = _animateTime / 2;
+            }
         }
 
         public void MoveRight(float speed)
         {
-            float x = MathHelper.Clamp(Position.X + speed, Resources.Instance.BorderDensity, _game.GraphicsDevice.Viewport.Width - Resources.Instance.BorderDensity);
-            Position = new Vector2(x, Position.Y + 1);
-            _animate = 3;
-            //_timer = _animateTime / 2;
+            if (!Resources.Instance.GameOver)
+            {
+                float x = MathHelper.Clamp(Position.X + speed, Resources.Instance.BorderDensity, _game.GraphicsDevice.Viewport.Width - Resources.Instance.BorderDensity);
+                Position = new Vector2(x, Position.Y + 1);
+                _animate = 3;
+                //_timer = _animateTime / 2;
+            }
         }
 
         public void MoveUp(float speed)
         {
-            velocity -= speed;
-            _animate = 1;
-            _timer = _animateTime;
+            if (!Resources.Instance.GameOver)
+            {
+                velocity -= speed;
+                _animate = 1;
+                _timer = _animateTime;
+            }
         }
 
         public override void Update(GameTime gameTime)
@@ -123,10 +136,9 @@ namespace KinectoSoar.SpriteManager
             }
 
             CheckBottomBorder();
+            velocity = MathHelper.Clamp(velocity, -8, 2);
             float y = MathHelper.Clamp(Position.Y + velocity + 4, HEIGHT / 2, _game.GraphicsDevice.Viewport.Height * 2);
             Position = new Vector2(Position.X, y);
-            velocity = MathHelper.Clamp(velocity, -8, 2);
-
         }
 
 
@@ -142,7 +154,9 @@ namespace KinectoSoar.SpriteManager
             if (Position.Y - HEIGHT / 2 > _game.GraphicsDevice.Viewport.Height)
             {
                 Resources.Instance.GameOver = true;
-                Position = new Vector2(0, -1 * HEIGHT);
+                Resources.Instance.Reset = false;
+                Position = new Vector2(0, -5 * HEIGHT);
+                velocity = 0;
             }
         }
     }
