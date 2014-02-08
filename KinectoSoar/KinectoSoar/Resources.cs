@@ -48,19 +48,19 @@ namespace KinectoSoar
             _bird = bird;
         }
 
-        public void MoveBirdUp()
+        public void MoveBirdUp(float speed)
         {
-            _bird.MoveUp();
+            _bird.MoveUp(speed);
         }
 
-        public void MoveBirdLeft()
+        public void MoveBirdLeft(float speed)
         {
-            _bird.MoveLeft();
+            _bird.MoveLeft(speed);
         }
 
-        public void MoveBirdRight()
+        public void MoveBirdRight(float speed)
         {
-            _bird.MoveRight();
+            _bird.MoveRight(speed);
         }
 
         public void AddTexture(string key, Texture2D texture)
