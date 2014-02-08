@@ -37,6 +37,7 @@ namespace KinectoSoar
         public bool Start { get; set; }
         public bool Ready { get; set; }
         public bool Reset { get; set; }
+        public bool Screech { get; set; }
         public int HighScore = 0;
         public int Score = 0;
 
@@ -171,6 +172,7 @@ namespace KinectoSoar
             Start = false;
             Reset = false;
             Ready = false;
+            Screech = false;
         }
 
         #endregion

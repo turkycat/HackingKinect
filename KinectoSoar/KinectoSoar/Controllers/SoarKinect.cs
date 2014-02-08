@@ -25,6 +25,9 @@ namespace KinectoSoar.Controllers
 
         private SpriteBatch _spriteBatch;
 
+        private int _lastFrame;
+        private int _time = 500;
+
         //used to verify that the arms are moving downward when detecting flapping
         float currentY = 0;
 
@@ -38,6 +41,16 @@ namespace KinectoSoar.Controllers
 
         public override void Update(GameTime gameTime)
         {
+            if (Resources.Instance.Screech)
+            {
+                _lastFrame += gameTime.ElapsedGameTime.Milliseconds;
+                if (_lastFrame > _time)
+                {
+                    Resources.Instance.Screech = false;
+                    _lastFrame = 0;
+                }
+            }
+
             base.Update(gameTime);
         }
 
@@ -184,6 +197,8 @@ namespace KinectoSoar.Controllers
                 {
                     case "SCREECH":
                         Resources.Instance.GetSound("EagleCry").Play();
+                        Resources.Instance.Screech = true;
+
                         break;
 
                     case "START":

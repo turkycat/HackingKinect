@@ -55,7 +55,7 @@ namespace KinectoSoar.SpriteManager
         {
             Vector2 fishMid = new Vector2(fish.X + (fishWidth / 2f), fish.Y + (fishHeight / 2f));
             float distance = Vector2.Distance(sprite.Position, fishMid);
-            if (distance <= 100)
+            if (!_empty && distance <= 100 && Resources.Instance.Screech)
             {
                 return true;
             }
@@ -65,6 +65,7 @@ namespace KinectoSoar.SpriteManager
         public override void HandleCollision(Sprite sprite)
         {
             _empty = true;
+            Resources.Instance.Score += 15;
             return;
         }
 
@@ -86,7 +87,7 @@ namespace KinectoSoar.SpriteManager
         public override void Draw()
         {
             _spriteBatch.Draw(Resources.Instance.GetTexture("Water"), Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, .9f);
-            if (!empty)
+            if (!_empty)
             {
                 _spriteBatch.Draw(Resources.Instance.GetTexture("Fish"), fish, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, .8f);
             }
