@@ -54,7 +54,7 @@ namespace KinectoSoar.SpriteManager
 
         public override void HandleCollision(Sprite sprite)
         {
-            // todo handle collision
+            Resources.Instance.GameOver = true;
         }
 
         public override void Update(GameTime gameTime)
