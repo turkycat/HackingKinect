@@ -25,6 +25,7 @@ namespace KinectoSoar.SpriteManager
 
         public Bird(Game game, SpriteBatch spriteBatch) : base( game, spriteBatch )
         {
+            Name = "Bird";
             this._birdInfo = new List<SpriteReader.SpriteInfo>();
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("Bird1"));
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("Bird2"));
