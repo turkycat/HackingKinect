@@ -82,6 +82,14 @@ namespace KinectoSoar
             Resources.Instance.AddFont("Cooper", Content.Load<SpriteFont>("Cooper"));
             Resources.Instance.AddTexture("Background", Content.Load<Texture2D>(@"Sprites/Background"));
             Resources.Instance.AddTexture("BirdSprite", Content.Load<Texture2D>(@"Sprites/BirdSprite"));
+            Resources.Instance.AddTexture("Water", Content.Load<Texture2D>(@"Sprites/Water"));
+            Resources.Instance.AddTexture("Fish", Content.Load<Texture2D>(@"Sprites/Fish"));
+
+            Resources.Instance.AddSound("EagleCry", Content.Load<SoundEffect>(@"Sounds/EagleCry"));
+            Resources.Instance.AddSound("EagleCollide", Content.Load<SoundEffect>(@"Sounds/EagleCollide"));
+            Resources.Instance.AddSound("EagleEat", Content.Load<SoundEffect>(@"Sounds/EagleEat"));
+            Resources.Instance.AddSound("EagleFlap", Content.Load<SoundEffect>(@"Sounds/EagleFlap"));
+            Resources.Instance.AddSound("EagleTurn", Content.Load<SoundEffect>(@"Sounds/EagleTurn"));
         }
 
         /// <summary>
