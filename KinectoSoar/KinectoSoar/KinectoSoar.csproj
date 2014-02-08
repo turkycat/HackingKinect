@@ -85,7 +85,6 @@
     <Compile Include="ScreenManager\GameScreen.cs" />
     <Compile Include="ScreenManager\Screen.cs" />
     <Compile Include="ScreenManager\ScreenManager.cs" />
-    <Compile Include="ScreenManager\ScreenTwo.cs" />
     <Compile Include="ScreenManager\StartScreen.cs" />
     <Compile Include="Soar.cs" />
     <Compile Include="SpriteManager\Background.cs" />

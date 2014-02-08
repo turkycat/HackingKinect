@@ -84,7 +84,6 @@ namespace KinectoSoar.SpriteManager
             Position = new Vector2(Position.X, y);
             _animate = 1;
             _timer = _animateTime;
-
         }
 
         public override void Update(GameTime gameTime)
@@ -121,6 +120,8 @@ namespace KinectoSoar.SpriteManager
                 _animate = 0;
                 _timer += _animateTime;
             }
+
+            CheckBottomBorder();
         }
 
 
@@ -130,7 +131,14 @@ namespace KinectoSoar.SpriteManager
             Rectangle source = _birdInfo[_frameIndex].Position;
             base._spriteBatch.Draw(Resources.Instance.GetTexture( "BirdSprite" ), dest, source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.1f);
         }
-        
 
+        private void CheckBottomBorder()
+        {
+            if (Position.Y - HEIGHT / 2 > _game.GraphicsDevice.Viewport.Height)
+            {
+                Resources.Instance.GameOver = true;
+                Position = new Vector2(0, -1 * HEIGHT);
+            }
+        }
     }
 }
