@@ -16,9 +16,6 @@ namespace KinectoSoar.SpriteManager
     {
         private Vector2[] _positions;
         private int _textureHeight;
-
-        //TODO
-        //not sure if we'll use this?
         private int speed;
 
         public Background( Game game, SpriteBatch spriteBatch ) : base( game, spriteBatch )

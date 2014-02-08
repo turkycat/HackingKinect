@@ -94,6 +94,7 @@
     <Compile Include="SpriteManager\Background.cs" />
     <Compile Include="SpriteManager\Bird.cs" />
     <Compile Include="SpriteManager\BlackBird.cs" />
+    <Compile Include="SpriteManager\Pond.cs" />
     <Compile Include="SpriteManager\Sprite.cs" />
     <Compile Include="SpriteManager\SpriteManager.cs" />
     <Compile Include="SpriteReader\SpriteInfo.cs" />

@@ -38,6 +38,7 @@ namespace KinectoSoar.ScreenManager
             this._spriteManager.AddSprite(new SpriteManager.BlackBird(game, spriteBatch));
             this._spriteManager.AddSprite(new SpriteManager.BlackBird(game, spriteBatch));
             this._spriteManager.AddSprite(new SpriteManager.BlackBird(game, spriteBatch));
+            this._spriteManager.AddSprite(new SpriteManager.Pond(game, spriteBatch));
             this._spriteManager.AddSprite(bird);
 
             game.Components.Add(_spriteManager);
