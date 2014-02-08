@@ -1,9 +1,0 @@
-U:\KinectHackathon\KinectoSoar\KinectoSoar\KinectoSoar\bin\x86\Debug\KinectoSoar.exe
-U:\KinectHackathon\KinectoSoar\KinectoSoar\KinectoSoar\bin\x86\Debug\KinectoSoar.pdb
-U:\KinectHackathon\KinectoSoar\KinectoSoar\KinectoSoar\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-U:\KinectHackathon\KinectoSoar\KinectoSoar\KinectoSoar\obj\x86\Debug\KinectoSoar.exe
-U:\KinectHackathon\KinectoSoar\KinectoSoar\KinectoSoar\obj\x86\Debug\KinectoSoar.pdb
-U:\KinectHackathon\KinectoSoar\KinectoSoar\KinectoSoar\bin\x86\Debug\Content\Cooper.xnb
-U:\KinectHackathon\KinectoSoar\KinectoSoar\KinectoSoar\bin\x86\Debug\Content\Sprites\Background.xnb
-U:\KinectHackathon\KinectoSoar\KinectoSoar\KinectoSoar\bin\x86\Debug\Content\Sprites\BirdSprite.xnb
-U:\KinectHackathon\KinectoSoar\KinectoSoar\KinectoSoar\bin\x86\Debug\Content\BirdSprite.xml

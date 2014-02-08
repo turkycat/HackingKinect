@@ -1,4 +1,0 @@
-Content\Cooper.xnb
-Content\Sprites\Background.xnb
-Content\Sprites\BirdSprite.xnb
-Content\BirdSprite.xml

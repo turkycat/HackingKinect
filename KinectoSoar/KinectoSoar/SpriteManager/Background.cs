@@ -19,12 +19,12 @@ namespace KinectoSoar.SpriteManager
 
         //TODO
         //not sure if we'll use this?
-        private float speed;
+        private int speed;
 
         public Background( Game game, SpriteBatch spriteBatch ) : base( game, spriteBatch )
         {
             this._game = game;
-            this.speed = 0;
+            this.speed = 5;
         }
 
         public override bool IsColliding(Sprite sprite)
@@ -51,7 +51,7 @@ namespace KinectoSoar.SpriteManager
                 _positions[i].Y += speed;
 
                 // if the speed is moving up
-                if (speed <= 0)
+                if (speed < 0)
                 {
                     if (_positions[i].Y <= -_textureHeight)
                     {
@@ -62,7 +62,7 @@ namespace KinectoSoar.SpriteManager
                 {
                     if (_positions[i].Y >= _textureHeight * (_positions.Length - 1))
                     {
-                        _positions[i].Y = -_textureHeight;
+                        _positions[i].Y = -_textureHeight + speed;
                     }
                 }
             }
@@ -79,7 +79,7 @@ namespace KinectoSoar.SpriteManager
             for (int i = 0; i < _positions.Length; i++)
             {
                 //draw the background at the far plane
-                base._spriteBatch.Draw( tex, new Vector2(), null, Color.White, 0f, new Vector2(), 1f, SpriteEffects.None, 1f);
+                base._spriteBatch.Draw( tex, _positions[i], null, Color.White, 0f, new Vector2(), 1f, SpriteEffects.None, 1f);
             }
         }
 
