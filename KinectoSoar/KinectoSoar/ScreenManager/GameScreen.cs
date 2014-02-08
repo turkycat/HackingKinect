@@ -18,6 +18,7 @@ namespace KinectoSoar.ScreenManager
         private SpriteManager.SpriteManager _spriteManager;
         private Controllers.SoarKeyboard _keyboard;
         private Controllers.SoarKinect _kinect;
+        private SoundEffectInstance _backgroundMusic;
 
         public GameScreen(Game game, SpriteBatch spriteBatch)
             : base(game, spriteBatch)
@@ -46,6 +47,13 @@ namespace KinectoSoar.ScreenManager
 
         public override void Update(ref Screen activeScreen)
         {
+            if (_backgroundMusic == null)
+            {
+                _backgroundMusic = Resources.Instance.GetSound("RockMusic").CreateInstance();
+                _backgroundMusic.IsLooped = true;
+                _backgroundMusic.Volume = 0.5f;
+                _backgroundMusic.Play();
+            }
             _currState = Keyboard.GetState();
             if (_currState != _prevState && _currState.IsKeyDown(Keys.Enter))
             {

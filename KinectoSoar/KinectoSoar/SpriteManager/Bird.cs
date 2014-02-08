@@ -39,7 +39,7 @@ namespace KinectoSoar.SpriteManager
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("Bird8"));
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("left"));
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("right"));
-            this.Position = new Vector2((game.GraphicsDevice.Viewport.Width - WIDTH) / 2f, game.GraphicsDevice.Viewport.Height - HEIGHT * 2 );
+            this.Position = new Vector2((game.GraphicsDevice.Viewport.Width) / 2f, game.GraphicsDevice.Viewport.Height - HEIGHT * 2 );
             _timer = _frameSpeed * 5;
         }
         
@@ -63,21 +63,25 @@ namespace KinectoSoar.SpriteManager
 
         public void MoveLeft(float speed)
         {
-            Position = new Vector2(Position.X - speed, Position.Y + 1);
+            float x = MathHelper.Clamp(Position.X - speed, Resources.Instance.BorderDensity, _game.GraphicsDevice.Viewport.Width - Resources.Instance.BorderDensity);
+            Position = new Vector2(x, Position.Y + 1);
+            
             _animate = 2;
-            _timer = _animateTime;
+            _timer = _animateTime / 2;
         }
 
         public void MoveRight(float speed)
         {
-            Position = new Vector2(Position.X + speed, Position.Y + 1);
+            float x = MathHelper.Clamp(Position.X + speed, Resources.Instance.BorderDensity, _game.GraphicsDevice.Viewport.Width - Resources.Instance.BorderDensity);
+            Position = new Vector2(x, Position.Y + 1);
             _animate = 3;
-            _timer = _animateTime;
+            _timer = _animateTime / 2;
         }
 
         public void MoveUp(float speed)
         {
-            Position = new Vector2(Position.X, Position.Y - speed);
+            float y = MathHelper.Clamp(Position.Y - speed, 0 + HEIGHT / 2, _game.GraphicsDevice.Viewport.Height);
+            Position = new Vector2(Position.X, y);
             _animate = 1;
             _timer = _animateTime;
 
