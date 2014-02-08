@@ -45,6 +45,8 @@ namespace KinectoSoar
             graphics.PreferredBackBufferWidth = 900;
             graphics.PreferredBackBufferHeight = 900;
 
+            Resources.Instance.SetSpriteReader(new SpriteReader.SpriteReader(Content.RootDirectory + @"\", "BirdSprite.xml"));
+
 
             graphics.ApplyChanges();
         }
@@ -118,7 +120,8 @@ namespace KinectoSoar
         protected override void LoadContent()
         {
             Resources.Instance.AddFont("Cooper", Content.Load<SpriteFont>("Cooper"));
-            Resources.Instance.AddTexture("Background", Content.Load<Texture2D>("Background"));
+            Resources.Instance.AddTexture("Background", Content.Load<Texture2D>(@"Sprites/Background"));
+            Resources.Instance.AddTexture("BirdSprite", Content.Load<Texture2D>(@"Sprites/BirdSprite"));
         }
 
         /// <summary>

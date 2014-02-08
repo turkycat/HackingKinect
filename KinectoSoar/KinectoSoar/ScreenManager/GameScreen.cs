@@ -17,6 +17,7 @@ namespace KinectoSoar.ScreenManager
         private KeyboardState _prevState;
         private SpriteManager.SpriteManager _spriteManager;
 
+
         public GameScreen(Game game, SpriteBatch spriteBatch)
             : base(game, spriteBatch)
         {
@@ -24,6 +25,7 @@ namespace KinectoSoar.ScreenManager
             this._prevState = _currState;
             this._spriteManager = new SpriteManager.SpriteManager(game);
             this._spriteManager.AddSprite(new SpriteManager.Background(game, spriteBatch));
+            this._spriteManager.AddSprite(new SpriteManager.Bird(game, spriteBatch));
             game.Components.Add(_spriteManager);
         }
 

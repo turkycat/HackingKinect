@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:eabf2a3bca2bc4d83002a5460d7b5d0f:d075c90a71b8f589ae2e5d3da3a1165c:5611aea6e1ffdad56cb9073068d7aaba$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+-->
+<TextureAtlas imagePath="BirdSprite.png" width="2048" height="512">
+    <sprite n="Bird1.png" x="0" y="0" w="300" h="150"/>
+    <sprite n="Bird2.png" x="300" y="0" w="300" h="150"/>
+    <sprite n="Bird3.png" x="600" y="0" w="300" h="150"/>
+    <sprite n="Bird4.png" x="900" y="0" w="300" h="150"/>
+    <sprite n="Bird5.png" x="1200" y="0" w="300" h="150"/>
+    <sprite n="Bird6.png" x="1500" y="0" w="300" h="150"/>
+    <sprite n="Bird7.png" x="0" y="150" w="300" h="150"/>
+    <sprite n="Bird8.png" x="300" y="150" w="300" h="150"/>
+    <sprite n="left.png" x="600" y="150" w="300" h="150"/>
+    <sprite n="right.png" x="900" y="150" w="300" h="150"/>
+</TextureAtlas>

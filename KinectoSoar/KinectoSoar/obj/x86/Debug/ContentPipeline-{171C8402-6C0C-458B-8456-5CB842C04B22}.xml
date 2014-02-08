@@ -11,13 +11,22 @@
       <Time>2014-02-07T22:14:58-06:00</Time>
     </Item>
     <Item>
-      <Source>Background.png</Source>
-      <Name>Background</Name>
+      <Source>Sprites\Background.png</Source>
+      <Name>Sprites\Background</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>U:\KinectHackathon\KinectoSoar\KinectoSoar\KinectoSoar\bin\x86\Debug\Content\Background.xnb</Output>
+      <Output>U:\KinectHackathon\KinectoSoar\KinectoSoar\KinectoSoar\bin\x86\Debug\Content\Sprites\Background.xnb</Output>
       <Time>2014-02-07T23:33:19-06:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprites\BirdSprite.png</Source>
+      <Name>Sprites\BirdSprite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>U:\KinectHackathon\KinectoSoar\KinectoSoar\KinectoSoar\bin\x86\Debug\Content\Sprites\BirdSprite.xnb</Output>
+      <Time>2014-02-08T00:24:21-06:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
