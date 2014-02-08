@@ -19,12 +19,15 @@ namespace KinectoSoar.SpriteManager
         private int _lastFrame;
         private int _frameIndex = 0;
         private int _animate = 0;
+        private int _timer = 0;
+        private int _animateTime = 1 * 1000;
 
         private const int WIDTH = 200;
         private const int HEIGHT = 100;
 
         public Bird(Game game, SpriteBatch spriteBatch) : base( game, spriteBatch )
         {
+            Name = "Bird";
             this._birdInfo = new List<SpriteReader.SpriteInfo>();
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("Bird1"));
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("Bird2"));
@@ -37,6 +40,7 @@ namespace KinectoSoar.SpriteManager
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("left"));
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("right"));
             this.Position = new Vector2((game.GraphicsDevice.Viewport.Width - WIDTH) / 2f, game.GraphicsDevice.Viewport.Height - HEIGHT * 2 );
+            _timer = _frameSpeed * 5;
         }
         
         public override bool IsColliding(Sprite sprite)
@@ -61,23 +65,28 @@ namespace KinectoSoar.SpriteManager
         {
             Position = new Vector2(Position.X - speed, Position.Y + 1);
             _animate = 2;
+            _timer = _animateTime;
         }
 
         public void MoveRight(float speed)
         {
             Position = new Vector2(Position.X + speed, Position.Y + 1);
             _animate = 3;
+            _timer = _animateTime;
         }
 
         public void MoveUp(float speed)
         {
             Position = new Vector2(Position.X, Position.Y - speed);
             _animate = 1;
+            _timer = _animateTime;
+
         }
 
         public override void Update(GameTime gameTime)
         {
             _lastFrame += gameTime.ElapsedGameTime.Milliseconds;
+            _timer -= gameTime.ElapsedGameTime.Milliseconds;
             if ( _animate == 1)
             {
                 if (_lastFrame > _frameSpeed && (_frameIndex < _birdInfo.Count - 2))
@@ -103,7 +112,11 @@ namespace KinectoSoar.SpriteManager
                 _frameIndex = 0;
                 this.MoveDown();
             }
-            _animate = 0;
+            if (_timer < 0)
+            {
+                _animate = 0;
+                _timer += _animateTime;
+            }
         }
 
 
