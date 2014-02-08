@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace KinectoSoar.SpriteManager
 {
-    class Bird : Sprite
+    public class Bird : Sprite
     {
         private List<SpriteReader.SpriteInfo> _birdInfo;
         private int _frameSpeed = 75;
@@ -49,6 +49,21 @@ namespace KinectoSoar.SpriteManager
             
             //TODO
             return;
+        }
+
+        public void MoveUp()
+        {
+            Position = new Vector2(Position.X, Position.Y - 1);
+        }
+
+        public void MoveLeft()
+        {
+            Position = new Vector2(Position.X - 1, Position.Y);
+        }
+
+        public void MoveRight()
+        {
+            Position = new Vector2(Position.X + 1, Position.Y);
         }
 
         public override void Update(GameTime gameTime)

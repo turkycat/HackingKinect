@@ -16,7 +16,7 @@ namespace KinectoSoar.ScreenManager
         private KeyboardState _currState;
         private KeyboardState _prevState;
         private SpriteManager.SpriteManager _spriteManager;
-
+        private Controllers.SoarKeyboard _keyboard;
 
         public GameScreen(Game game, SpriteBatch spriteBatch)
             : base(game, spriteBatch)
@@ -24,9 +24,16 @@ namespace KinectoSoar.ScreenManager
             this._currState = Keyboard.GetState();
             this._prevState = _currState;
             this._spriteManager = new SpriteManager.SpriteManager(game);
+            this._keyboard = new Controllers.SoarKeyboard(game);
+
+            SpriteManager.Bird bird = new SpriteManager.Bird(game, spriteBatch);
+            Resources.Instance.setBird(bird);
+
             this._spriteManager.AddSprite(new SpriteManager.Background(game, spriteBatch));
-            this._spriteManager.AddSprite(new SpriteManager.Bird(game, spriteBatch));
+            this._spriteManager.AddSprite(bird);
+
             game.Components.Add(_spriteManager);
+            game.Components.Add(_keyboard);
         }
 
         public override void Draw()

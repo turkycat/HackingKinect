@@ -23,8 +23,9 @@ namespace KinectoSoar.SpriteManager
 
         public Background( Game game, SpriteBatch spriteBatch ) : base( game, spriteBatch )
         {
+            Resources.Instance.BorderDensity = ( game.GraphicsDevice.Viewport.Width / 90f ) * 7.5f;
             this._game = game;
-            this.speed = 5;
+            this.speed = 4;
         }
 
         public override bool IsColliding(Sprite sprite)
