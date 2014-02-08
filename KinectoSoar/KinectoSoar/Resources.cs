@@ -37,6 +37,7 @@ namespace KinectoSoar
         public bool Start { get; set; }
         public bool Ready { get; set; }
         public bool Reset { get; set; }
+        public int HighScore = 0;
 
         private SpriteManager.Bird _bird;
 

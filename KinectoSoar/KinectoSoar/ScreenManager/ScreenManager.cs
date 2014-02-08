@@ -45,7 +45,7 @@ namespace KinectoSoar.ScreenManager
         {
             // Gives the active screen a reference to the current active
             // screen so it can change it based off of input
-            _activeScreen.Update(ref _activeScreen);
+            _activeScreen.Update(ref _activeScreen, gameTime);
             base.Update(gameTime);
         }
 

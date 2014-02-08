@@ -27,7 +27,7 @@ namespace KinectoSoar.ScreenManager
             _prevState = _currentState;
         }
 
-        public override void Update(ref Screen activeScreen)
+        public override void Update(ref Screen activeScreen, GameTime gameTime)
         {
             _currentState = Keyboard.GetState();
             if (_currentState != _prevState && _currentState.IsKeyDown(Keys.Enter))
@@ -55,6 +55,8 @@ namespace KinectoSoar.ScreenManager
                 Texture2D texture = Resources.Instance.GetTexture( "Ready" );
                 _spriteBatch.Draw(texture, new Rectangle(((int)screenSize.X - 300) / 2, ((int)screenSize.Y - 200) / 2, 300, 300), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
             }
+            Vector2 scoreSize = Resources.Instance.GetFont("Cooper").MeasureString("High Score: " + Resources.Instance.HighScore.ToString());
+            _spriteBatch.DrawString(Resources.Instance.GetFont("Cooper"), "High Score: " + Resources.Instance.HighScore.ToString(), new Vector2((_game.GraphicsDevice.Viewport.Width - scoreSize.X) / 2, 10), Color.Yellow);
         }
 
     }

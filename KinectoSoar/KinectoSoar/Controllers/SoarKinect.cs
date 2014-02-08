@@ -269,8 +269,6 @@ namespace KinectoSoar.Controllers
 
         #endregion
 
-
-
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (null != this._sensor)

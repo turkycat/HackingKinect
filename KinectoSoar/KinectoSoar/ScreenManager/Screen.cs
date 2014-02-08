@@ -45,7 +45,7 @@ namespace KinectoSoar.ScreenManager
 
         // Passes reference so can change the screen based
         // off user input.
-        public abstract void Update(ref Screen activeScreen);
+        public abstract void Update(ref Screen activeScreen, GameTime gameTime);
 
         #endregion
     }
