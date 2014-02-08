@@ -21,6 +21,7 @@ namespace KinectoSoar.SpriteManager
         private int _animate = 0;
         private int _timer = 0;
         private int _animateTime = 500;
+        private float velocity = 0;
 
         private const int WIDTH = 200;
         private const int HEIGHT = 100;
@@ -41,6 +42,7 @@ namespace KinectoSoar.SpriteManager
             _birdInfo.Add(Resources.Instance.GetSpriteInfo("right"));
             this.Position = new Vector2((game.GraphicsDevice.Viewport.Width) / 2f, game.GraphicsDevice.Viewport.Height - HEIGHT * 2 );
             _timer = _animateTime;
+            
         }
         
         public override bool IsColliding(Sprite sprite)
@@ -67,7 +69,7 @@ namespace KinectoSoar.SpriteManager
             Position = new Vector2(x, Position.Y + 1);
             
             _animate = 2;
-            _timer = _animateTime / 2;
+            //_timer = _animateTime / 2;
         }
 
         public void MoveRight(float speed)
@@ -75,13 +77,12 @@ namespace KinectoSoar.SpriteManager
             float x = MathHelper.Clamp(Position.X + speed, Resources.Instance.BorderDensity, _game.GraphicsDevice.Viewport.Width - Resources.Instance.BorderDensity);
             Position = new Vector2(x, Position.Y + 1);
             _animate = 3;
-            _timer = _animateTime / 2;
+            //_timer = _animateTime / 2;
         }
 
         public void MoveUp(float speed)
         {
-            float y = MathHelper.Clamp(Position.Y - speed, 0 + HEIGHT / 2, _game.GraphicsDevice.Viewport.Height);
-            Position = new Vector2(Position.X, y);
+            velocity -= speed;
             _animate = 1;
             _timer = _animateTime;
         }
@@ -113,15 +114,19 @@ namespace KinectoSoar.SpriteManager
             else
             {
                 _frameIndex = 0;
-                this.MoveDown();
             }
             if (_timer < 0)
             {
+                velocity = velocity * 0.6f;
                 _animate = 0;
                 _timer += _animateTime;
             }
 
             CheckBottomBorder();
+            float y = MathHelper.Clamp(Position.Y + velocity + 4, HEIGHT / 2, _game.GraphicsDevice.Viewport.Height * 2);
+            Position = new Vector2(Position.X, y);
+            velocity = MathHelper.Clamp(velocity, -10, 2);
+
         }
 
 
